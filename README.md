@@ -1,116 +1,41 @@
-# Mini SwarmGPT 4-Drone Planner with MuJoCo Trajectory Execution
+# Universal Robots UR5e Description (MJCF)
 
-Mini SwarmGPT adalah MVP sederhana untuk lab robot planning. Project ini terinspirasi dari SwarmGPT, tetapi dibuat tanpa Crazyflow, tanpa API berbayar, dan tanpa LLM asli. Versi minimal ini fokus pada satu kebutuhan utama: prompt masuk, lalu `outputs/trajectory.csv` dibuat untuk MuJoCo execution.
+> [!IMPORTANT]
+> Requires MuJoCo 2.3.3 or later.
 
-## Scope
+## Changelog
 
-- 4 drone only.
-- Drone ID selalu `0`, `1`, `2`, dan `3`.
-- Rule-based LLM-style planner.
-- Trajectory generation dengan Python dan NumPy.
-- Output utama hanya `outputs/trajectory.csv`.
-- Optional MuJoCo trajectory playback memakai `mujoco_execution/swarm_scene.xml`.
+See [CHANGELOG.md](./CHANGELOG.md) for a full history of changes.
 
-File lama Progress 2 seperti `main.py`, `solution.py`, `swarm_scene.xml`, `logs/`, dan `mujoco_menagerie-main/` tetap ada di repository. Project Mini SwarmGPT dijalankan melalui `src/main.py`.
+## Overview
 
-## Architecture
+This package contains a simplified robot description (MJCF) of the
+[UR5e](https://www.universal-robots.com/products/ur5-robot/) developed by
+[Universal Robots](https://www.universal-robots.com/). It is derived from the
+[publicly available URDF
+description](https://github.com/ros-industrial/universal_robot/tree/kinetic-devel/ur_e_description).
 
-```txt
-User prompt
--> Prompt Planner
--> 4-Drone JSON Plan
--> Motion Primitive Generator
--> Trajectory Generator
--> outputs/trajectory.csv
--> Optional MuJoCo Trajectory Playback
-```
+<p float="left">
+  <img src="ur5e.png" width="400">
+</p>
 
-## Install Main Project
+### URDF → MJCF derivation steps
 
-Linux, WSL, atau macOS:
+1. Converted the DAE [mesh
+   files](https://github.com/ros-industrial/universal_robot/tree/kinetic-devel/ur_e_description/meshes/ur5e/visual)
+   to OBJ format using [Blender](https://www.blender.org/).
+2. Processed `.obj` files with  [`obj2mjcf`](https://github.com/kevinzakka/obj2mjcf).
+3. Added `<mujoco> <compiler discardvisual="false"/> </mujoco>` to the URDF's
+   `<robot>` clause in order to preserve visual geometries.
+4. Loaded the URDF into MuJoCo and saved a corresponding MJCF.
+5. Added a tracking light to the base.
+6. Manually edited the MJCF to extract common properties into the `<default>` section.
+7. Added position-controlled actuators. Max joint torque values were taken from
+   [here](https://www.universal-robots.com/articles/ur/robot-care-maintenance/max-joint-torques/).
+8. Added home joint configuration as a `keyframe`.
+9. Manually designed collision geometries.
+10. Added `scene.xml` which includes the robot, with a textured ground plane, skybox and haze.
 
-```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-```
+## License
 
-Windows:
-
-```powershell
-python -m venv .venv
-.\.venv\Scripts\activate
-pip install -r requirements.txt
-```
-
-Dependency utama sengaja minimal:
-
-```txt
-numpy
-```
-
-## Optional MuJoCo
-
-MuJoCo tidak masuk `requirements.txt` utama agar planner tetap ringan. Untuk trajectory playback di MuJoCo:
-
-```bash
-pip install mujoco
-```
-
-## Run Planner
-
-```bash
-python src/main.py --prompt "buat 4 drone membentuk lingkaran dan berputar pelan"
-python src/main.py --prompt "make the drones form a circle and rotate slowly"
-python src/main.py --prompt "buat drone bergerak seperti gelombang" --dt 0.05
-```
-
-## Run MuJoCo Playback
-
-```bash
-python mujoco_execution/run_mujoco_trajectory.py --trajectory outputs/trajectory.csv --scene mujoco_execution/swarm_scene.xml
-```
-
-Jika body name di scene berbeda:
-
-```bash
-python mujoco_execution/run_mujoco_trajectory.py --body-names drone0,drone1,drone2,drone3
-```
-
-Untuk validasi tanpa membuka viewer:
-
-```bash
-python mujoco_execution/run_mujoco_trajectory.py --trajectory outputs/trajectory.csv --scene mujoco_execution/swarm_scene.xml --no-render
-```
-
-## Output
-
-Output planner masuk ke `outputs/`.
-
-- `outputs/trajectory.csv`: trajectory dengan format `time,drone_id,x,y,z`.
-
-File ini adalah input utama untuk MuJoCo execution. File report dan plot tidak dibuat oleh pipeline minimal ini.
-
-## Supported Plans
-
-Formations:
-
-- `square`
-- `circle`
-- `line`
-- `diamond`
-
-Primitives:
-
-- `hover`
-- `rotate`
-- `rise`
-- `wave`
-- `spiral`
-- `move_forward`
-
-Speeds:
-
-- `slow`
-- `normal`
-- `fast`
+This model is released under a [BSD-3-Clause License](LICENSE).

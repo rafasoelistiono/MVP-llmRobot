@@ -1,0 +1,43 @@
+[
+  {
+    "attempt": 1,
+    "executed_successfully": [
+      {
+        "step": 1,
+        "action": "pick",
+        "object": "red_box",
+        "result": "success"
+      },
+      {
+        "step": 2,
+        "action": "place",
+        "object": "red_box",
+        "result": "success",
+        "parameters": {
+          "x": 0.45,
+          "y": -0.08,
+          "theta": 0.0
+        }
+      },
+      {
+        "step": 3,
+        "action": "pick",
+        "object": "blue_box",
+        "result": "success"
+      }
+    ],
+    "failed_action": {
+      "step": 4,
+      "action": "place",
+      "object": "blue_box",
+      "parameters": {
+        "x": 0.46,
+        "y": -0.06,
+        "theta": 0.0
+      },
+      "result": "failed",
+      "failure_type": "collision",
+      "failure_reason": "blue_box placement is in collision with red_box."
+    }
+  }
+]

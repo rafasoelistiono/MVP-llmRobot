@@ -1,0 +1,323 @@
+[
+  {
+    "attempt": 1,
+    "prompt_template": "C:\\projek\\MVP-llmRobot-v2\\prompts\\llm3_ur5e_prompt.txt",
+    "prompt_sha256": "a896fde5895504ecbc7aeaec589098402c1ab3a65811756b817acb16609812b4",
+    "raw_llm_response_path": "C:\\projek\\MVP-llmRobot-v2\\logs\\raw_llm_responses\\attempt_001.txt",
+    "raw_llm_response": "{\n  \"failure_analysis\": \"No previous failure.\",\n  \"strategy\": \"Initial plan that accidentally places blue_box too close to red_box.\",\n  \"plan\": [\n    {\n      \"step\": 1,\n      \"action\": \"pick\",\n      \"object\": \"red_box\",\n      \"parameters\": {}\n    },\n    {\n      \"step\": 2,\n      \"action\": \"place\",\n      \"object\": \"red_box\",\n      \"parameters\": {\n        \"x\": 0.45,\n        \"y\": -0.08,\n        \"theta\": 0.0\n      }\n    },\n    {\n      \"step\": 3,\n      \"action\": \"pick\",\n      \"object\": \"blue_box\",\n      \"parameters\": {}\n    },\n    {\n      \"step\": 4,\n      \"action\": \"place\",\n      \"object\": \"blue_box\",\n      \"parameters\": {\n        \"x\": 0.46,\n        \"y\": -0.06,\n        \"theta\": 0.0\n      }\n    },\n    {\n      \"step\": 5,\n      \"action\": \"pick\",\n      \"object\": \"green_box\",\n      \"parameters\": {}\n    },\n    {\n      \"step\": 6,\n      \"action\": \"place\",\n      \"object\": \"green_box\",\n      \"parameters\": {\n        \"x\": 0.58,\n        \"y\": 0.12,\n        \"theta\": 1.57\n      }\n    }\n  ]\n}",
+    "parsed_plan": {
+      "failure_analysis": "No previous failure.",
+      "strategy": "Initial plan that accidentally places blue_box too close to red_box.",
+      "plan": [
+        {
+          "step": 1,
+          "action": "pick",
+          "object": "red_box",
+          "parameters": {}
+        },
+        {
+          "step": 2,
+          "action": "place",
+          "object": "red_box",
+          "parameters": {
+            "x": 0.45,
+            "y": -0.08,
+            "theta": 0.0
+          }
+        },
+        {
+          "step": 3,
+          "action": "pick",
+          "object": "blue_box",
+          "parameters": {}
+        },
+        {
+          "step": 4,
+          "action": "place",
+          "object": "blue_box",
+          "parameters": {
+            "x": 0.46,
+            "y": -0.06,
+            "theta": 0.0
+          }
+        },
+        {
+          "step": 5,
+          "action": "pick",
+          "object": "green_box",
+          "parameters": {}
+        },
+        {
+          "step": 6,
+          "action": "place",
+          "object": "green_box",
+          "parameters": {
+            "x": 0.58,
+            "y": 0.12,
+            "theta": 1.57
+          }
+        }
+      ]
+    },
+    "validation_result": {
+      "success": false,
+      "executed_successfully": [
+        {
+          "step": 1,
+          "action": "pick",
+          "object": "red_box",
+          "result": "success"
+        },
+        {
+          "step": 2,
+          "action": "place",
+          "object": "red_box",
+          "result": "success",
+          "parameters": {
+            "x": 0.45,
+            "y": -0.08,
+            "theta": 0.0
+          }
+        },
+        {
+          "step": 3,
+          "action": "pick",
+          "object": "blue_box",
+          "result": "success"
+        }
+      ],
+      "failed_action": {
+        "step": 4,
+        "action": "place",
+        "object": "blue_box",
+        "parameters": {
+          "x": 0.46,
+          "y": -0.06,
+          "theta": 0.0
+        },
+        "result": "failed",
+        "failure_type": "collision",
+        "failure_reason": "blue_box placement is in collision with red_box."
+      }
+    },
+    "feedback": {
+      "attempt": 1,
+      "executed_successfully": [
+        {
+          "step": 1,
+          "action": "pick",
+          "object": "red_box",
+          "result": "success"
+        },
+        {
+          "step": 2,
+          "action": "place",
+          "object": "red_box",
+          "result": "success",
+          "parameters": {
+            "x": 0.45,
+            "y": -0.08,
+            "theta": 0.0
+          }
+        },
+        {
+          "step": 3,
+          "action": "pick",
+          "object": "blue_box",
+          "result": "success"
+        }
+      ],
+      "failed_action": {
+        "step": 4,
+        "action": "place",
+        "object": "blue_box",
+        "parameters": {
+          "x": 0.46,
+          "y": -0.06,
+          "theta": 0.0
+        },
+        "result": "failed",
+        "failure_type": "collision",
+        "failure_reason": "blue_box placement is in collision with red_box."
+      }
+    },
+    "final_object_poses_after_attempt": {
+      "red_box": {
+        "pose": [
+          0.45,
+          -0.08,
+          0.0
+        ],
+        "status": "placed"
+      },
+      "blue_box": {
+        "pose": [
+          0.3,
+          0.1,
+          0.0
+        ],
+        "status": "held"
+      },
+      "green_box": {
+        "pose": [
+          0.4,
+          0.3,
+          0.0
+        ],
+        "status": "on_table"
+      }
+    }
+  },
+  {
+    "attempt": 2,
+    "prompt_template": "C:\\projek\\MVP-llmRobot-v2\\prompts\\llm3_ur5e_prompt.txt",
+    "prompt_sha256": "b788f07acd1e9d874b15483222085e642185e6146a8502a4cfd0e395d304f972",
+    "raw_llm_response_path": "C:\\projek\\MVP-llmRobot-v2\\logs\\raw_llm_responses\\attempt_002.txt",
+    "raw_llm_response": "{\n  \"failure_analysis\": \"The previous plan failed because blue_box was placed too close to red_box.\",\n  \"strategy\": \"Separate the boxes and rotate the long green_box.\",\n  \"plan\": [\n    {\n      \"step\": 1,\n      \"action\": \"pick\",\n      \"object\": \"green_box\",\n      \"parameters\": {}\n    },\n    {\n      \"step\": 2,\n      \"action\": \"place\",\n      \"object\": \"green_box\",\n      \"parameters\": {\n        \"x\": 0.5,\n        \"y\": 0.14,\n        \"theta\": 1.57\n      }\n    },\n    {\n      \"step\": 3,\n      \"action\": \"pick\",\n      \"object\": \"red_box\",\n      \"parameters\": {}\n    },\n    {\n      \"step\": 4,\n      \"action\": \"place\",\n      \"object\": \"red_box\",\n      \"parameters\": {\n        \"x\": 0.42,\n        \"y\": -0.1,\n        \"theta\": 0.0\n      }\n    },\n    {\n      \"step\": 5,\n      \"action\": \"pick\",\n      \"object\": \"blue_box\",\n      \"parameters\": {}\n    },\n    {\n      \"step\": 6,\n      \"action\": \"place\",\n      \"object\": \"blue_box\",\n      \"parameters\": {\n        \"x\": 0.62,\n        \"y\": -0.1,\n        \"theta\": 0.0\n      }\n    }\n  ]\n}",
+    "parsed_plan": {
+      "failure_analysis": "The previous plan failed because blue_box was placed too close to red_box.",
+      "strategy": "Separate the boxes and rotate the long green_box.",
+      "plan": [
+        {
+          "step": 1,
+          "action": "pick",
+          "object": "green_box",
+          "parameters": {}
+        },
+        {
+          "step": 2,
+          "action": "place",
+          "object": "green_box",
+          "parameters": {
+            "x": 0.5,
+            "y": 0.14,
+            "theta": 1.57
+          }
+        },
+        {
+          "step": 3,
+          "action": "pick",
+          "object": "red_box",
+          "parameters": {}
+        },
+        {
+          "step": 4,
+          "action": "place",
+          "object": "red_box",
+          "parameters": {
+            "x": 0.42,
+            "y": -0.1,
+            "theta": 0.0
+          }
+        },
+        {
+          "step": 5,
+          "action": "pick",
+          "object": "blue_box",
+          "parameters": {}
+        },
+        {
+          "step": 6,
+          "action": "place",
+          "object": "blue_box",
+          "parameters": {
+            "x": 0.62,
+            "y": -0.1,
+            "theta": 0.0
+          }
+        }
+      ]
+    },
+    "validation_result": {
+      "success": true,
+      "executed_successfully": [
+        {
+          "step": 1,
+          "action": "pick",
+          "object": "green_box",
+          "result": "success"
+        },
+        {
+          "step": 2,
+          "action": "place",
+          "object": "green_box",
+          "result": "success",
+          "parameters": {
+            "x": 0.5,
+            "y": 0.14,
+            "theta": 1.57
+          }
+        },
+        {
+          "step": 3,
+          "action": "pick",
+          "object": "red_box",
+          "result": "success"
+        },
+        {
+          "step": 4,
+          "action": "place",
+          "object": "red_box",
+          "result": "success",
+          "parameters": {
+            "x": 0.42,
+            "y": -0.1,
+            "theta": 0.0
+          }
+        },
+        {
+          "step": 5,
+          "action": "pick",
+          "object": "blue_box",
+          "result": "success"
+        },
+        {
+          "step": 6,
+          "action": "place",
+          "object": "blue_box",
+          "result": "success",
+          "parameters": {
+            "x": 0.62,
+            "y": -0.1,
+            "theta": 0.0
+          }
+        }
+      ],
+      "goal_details": {
+        "red_box_placed": true,
+        "blue_box_placed": true,
+        "green_box_placed": true,
+        "inside_target_area": true,
+        "no_object_collision": true,
+        "reachable_placements": true
+      }
+    },
+    "feedback": null,
+    "final_object_poses_after_attempt": {
+      "red_box": {
+        "pose": [
+          0.42,
+          -0.1,
+          0.0
+        ],
+        "status": "placed"
+      },
+      "blue_box": {
+        "pose": [
+          0.62,
+          -0.1,
+          0.0
+        ],
+        "status": "placed"
+      },
+      "green_box": {
+        "pose": [
+          0.5,
+          0.14,
+          1.57
+        ],
+        "status": "placed"
+      }
+    }
+  }
+]

@@ -1,0 +1,52 @@
+<mujoco model="ur5e_llm3_pick_place">
+  <compiler angle="radian" autolimits="true"/>
+
+  <include file="ur5e_llm3_robot.xml"/>
+
+  <statistic center="0.45 0 0.45" extent="1.0"/>
+
+  <visual>
+    <headlight diffuse="0.6 0.6 0.6" ambient="0.15 0.15 0.15" specular="0 0 0"/>
+    <rgba haze="0.15 0.25 0.35 1"/>
+    <global azimuth="130" elevation="-25"/>
+  </visual>
+
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="3072"/>
+    <texture type="2d" name="llm3_groundplane" builtin="checker" mark="edge" rgb1="0.2 0.3 0.4"
+      rgb2="0.1 0.2 0.3" markrgb="0.8 0.8 0.8" width="300" height="300"/>
+    <material name="llm3_groundplane" texture="llm3_groundplane" texuniform="true" texrepeat="5 5" reflectance="0.2"/>
+    <material name="table_mat" rgba="0.58 0.50 0.42 1"/>
+    <material name="target_area_mat" rgba="0.0 0.8 0.25 0.35"/>
+  </asset>
+
+  <worldbody>
+    <light name="llm3_key_light" pos="0.2 -0.8 1.8" dir="0 0 -1" directional="true"/>
+    <geom name="floor" size="0 0 0.05" type="plane" material="llm3_groundplane"/>
+
+    <body name="target_table" pos="0.35 0 0.20">
+      <geom name="target_table_geom" type="box" size="0.65 0.45 0.20" material="table_mat" friction="1.0 0.005 0.0001"/>
+    </body>
+
+    <geom name="target_area_marker" type="box" pos="0.525 0 0.403" size="0.175 0.25 0.003"
+      material="target_area_mat" contype="0" conaffinity="0" group="1"/>
+
+    <body name="red_box" pos="0.30 -0.30 0.42">
+      <freejoint name="red_box_freejoint"/>
+      <geom name="red_box_geom" type="box" size="0.04 0.04 0.02" rgba="1 0 0 1" mass="0.20"
+        friction="1.0 0.005 0.0001"/>
+    </body>
+
+    <body name="blue_box" pos="0.30 0.10 0.42">
+      <freejoint name="blue_box_freejoint"/>
+      <geom name="blue_box_geom" type="box" size="0.035 0.035 0.02" rgba="0 0 1 1" mass="0.18"
+        friction="1.0 0.005 0.0001"/>
+    </body>
+
+    <body name="green_box" pos="0.40 0.30 0.42">
+      <freejoint name="green_box_freejoint"/>
+      <geom name="green_box_geom" type="box" size="0.07 0.035 0.02" rgba="0 1 0 1" mass="0.25"
+        friction="1.0 0.005 0.0001"/>
+    </body>
+  </worldbody>
+</mujoco>
